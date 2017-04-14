@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 gem 'nokogiri'
-gem 'sqlite3'
+gem 'pg'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'data_mapper'

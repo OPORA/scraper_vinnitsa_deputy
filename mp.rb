@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/json'
 require_relative 'lib/people'
+set :protection, except: [:json_csrf]
 
 get '/' do
   hash =[]
