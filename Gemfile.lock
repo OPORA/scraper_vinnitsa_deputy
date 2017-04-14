@@ -1,12 +1,21 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (4.2.7.1)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     backports (3.6.6)
     bcrypt (3.1.11)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
+    config (1.3.0)
+      activesupport (>= 3.0)
+      deep_merge (~> 1.1.1)
     data_mapper (1.2.0)
       dm-aggregates (~> 1.2.0)
       dm-constraints (~> 1.2.0)
@@ -19,6 +28,7 @@ GEM
       dm-validations (~> 1.2.0)
     data_objects (0.10.17)
       addressable (~> 2.1)
+    deep_merge (1.1.1)
     dm-aggregates (1.2.0)
       dm-core (~> 1.2.0)
     dm-constraints (1.2.0)
@@ -56,9 +66,11 @@ GEM
     do_postgres (0.10.17)
       data_objects (= 0.10.17)
     fastercsv (1.5.5)
+    i18n (0.8.1)
     json (1.8.6)
     json_pure (1.8.6)
     mini_portile2 (2.1.0)
+    minitest (5.10.1)
     multi_json (1.12.1)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -81,13 +93,17 @@ GEM
       sinatra (~> 1.4.0)
       tilt (>= 1.3, < 3)
     stringex (1.5.1)
+    thread_safe (0.3.6)
     tilt (2.0.7)
+    tzinfo (1.2.3)
+      thread_safe (~> 0.1)
     uuidtools (2.1.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  config
   data_mapper
   dm-postgres-adapter
   nokogiri

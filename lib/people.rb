@@ -1,6 +1,12 @@
 require 'data_mapper'
+require 'config'
+
+unless ENV['RACK_ENV']
+  Config.load_and_set_settings(File.dirname(__FILE__) +'/../config/secrets.yml')
+end
+
 DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, ENV['DATABASE_URL'])
+DataMapper.setup(:default, ENV['DATABASE_URL'] || Settings.db_url)
 class People
   include DataMapper::Resource
 

@@ -47,7 +47,17 @@ class ScrapeMp
     end
     p hash[:party]
     p hash[:okrug]
-    party = hash[:party].strip
+    if hash[:party].include?("УКРОП")
+      party = "УКРОП"
+    elsif hash[:party].include?("Народний контроль")
+      party = "Народний контроль"
+    elsif hash[:party].include?("Солідарність") or  hash[:party].include?("СОЛІДАРНІСТЬ")
+      party = "Блок Петра Порошенка"
+    elsif hash[:party].include?("Самопоміч")
+      party = "Самопоміч"
+    else
+      party = hash[:party].strip
+    end
     if name == 'Веремчук Валерій Миколайович' or name == 'Адамик Петро Михайлович' or name == 'Береза Олег Ігорович'
       okrug = nil
     else
@@ -80,9 +90,10 @@ class ScrapeMp
           updated_at: Time.now
       )
     end
-
   end
 end
-
+unless ENV['RACK_ENV']
+  ScrapeMp.new
+end
 
 
