@@ -15,6 +15,7 @@ class People
   property :first_name,   String
   property :middle_name,  String
   property :last_name,    String
+  property :full_name,    Text
   property :photo_url,    Text    # A varchar type string, for short strings
   property :fraction,     String
   property :okrug,        Integer
