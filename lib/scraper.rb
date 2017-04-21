@@ -6,21 +6,39 @@ class ScrapeMp
   def initialize
     DataMapper.auto_upgrade!
     url = "https://www.lvivrada.gov.ua/deputaty/deputaty-miskoi-rady"
-    start_mp = People.all(update_mp: 1)
-    start_mp.update(update_mp: 2)
     page = get_page(url)
     page.css('#componentin .catItemTitle a').each do |mp|
       scrape_mp(mp[:href])
     end
-    remove_mp = People.all(update_mp: 2)
-    remove_mp.update(update_mp: 3)
-
+    resigned_mp()
   end
   def get_page(url)
     Nokogiri::HTML(open(url, "User-Agent" => "HTTP_USER_AGENT:Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Chrome/9.0.597.47"), nil, 'utf-8')
   end
-  def scrape_mp(mp)
-    uri = "https://lvivrada.gov.ua" + mp
+  def resigned_mp
+    uri = "https://www.lvivrada.gov.ua/deputaty/sklaly-povnovazhennya"
+    page_resigned = get_page(uri)
+    resigned =  page_resigned.css('.itemFullText table tr')
+    resigned.shift
+    resigned.each do |tr|
+      next if tr.css('td')[0].text.strip == "VII СКЛИКАННЯ"
+      break if tr.css('td')[0].text.strip[/СКЛИКАННЯ/]
+      mp_url = tr.css('td a')[0][:href]
+      sourse_date = tr.css('td')[2].text.strip
+      scrape_mp(mp_url, sourse_date )
+    end
+  end
+  def scrape_mp(mp, date_end = nil )
+    if date_end.nil?
+      date_end = nil
+    else
+      date_end = Date.parse(date_end,'%d.%m.%Y')
+    end
+    if mp[/https:/]
+      uri = mp
+    else
+      uri = "https://lvivrada.gov.ua" + mp
+    end
     rada_id =mp.split('/').last[/\d{4}/]
     page_mp= get_page(uri)
     name = page_mp.css('h2.itemTitle').text.gsub(/\n/,'').strip
@@ -76,7 +94,7 @@ class ScrapeMp
         fraction: party,
     )
     unless people.nil?
-    people.update(updated_at: Time.now, update_mp: 1)
+    people.update(end_date:  date_end,  updated_at: Time.now) # update_mp: 1)
     else
       People.create(
           first_name: name_array[1],
@@ -87,7 +105,7 @@ class ScrapeMp
           okrug: okrug,
           photo_url: image,
           fraction: party,
-          update_mp: 1,
+          end_date:  date_end,
           created_at: Time.now,
           updated_at: Time.now
       )
