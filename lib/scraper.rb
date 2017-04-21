@@ -11,6 +11,24 @@ class ScrapeMp
       scrape_mp(mp[:href])
     end
     resigned_mp()
+    create_mer()
+  end
+  def create_mer
+    #TODO create mer Sadovoy
+    names = %w{Садовий Андрій Іванович}
+    People.first_or_create(
+        first_name: names[1],
+        middle_name: names[2],
+        last_name: names[0],
+        full_name: names.join(' '),
+        rada_id: 1111,
+        okrug: nil,
+        photo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/AndriiSadovyi.JPG/255px-AndriiSadovyi.JPG",
+        fraction: "Самопоміч",
+        end_date:  nil,
+        # created_at: Time.now,
+        # updated_at: Time.now
+    )
   end
   def get_page(url)
     Nokogiri::HTML(open(url, "User-Agent" => "HTTP_USER_AGENT:Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Chrome/9.0.597.47"), nil, 'utf-8')
@@ -94,7 +112,7 @@ class ScrapeMp
         fraction: party,
     )
     unless people.nil?
-    people.update(end_date:  date_end,  updated_at: Time.now) # update_mp: 1)
+    people.update(end_date:  date_end,  updated_at: Time.now)
     else
       People.create(
           first_name: name_array[1],
