@@ -21,13 +21,13 @@ class ScrapeMp
         middle_name: names[2],
         last_name: names[0],
         full_name: names.join(' '),
-        rada_id: 1111,
+        deputy_id: 1111,
         okrug: nil,
         photo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/AndriiSadovyi.JPG/255px-AndriiSadovyi.JPG",
-        fraction: "Самопоміч",
+        faction: "Самопоміч",
         end_date:  nil,
-        # created_at: Time.now,
-        # updated_at: Time.now
+        created_at: "9999-12-31",
+        updated_at: "9999-12-31"
     )
   end
   def get_page(url)
@@ -106,10 +106,10 @@ class ScrapeMp
         middle_name: name_array[2],
         last_name: name_array[0],
         full_name: name_array.join(' '),
-        rada_id: rada_id,
+        deputy_id: rada_id,
         okrug: okrug,
         photo_url: image,
-        fraction: party,
+        faction: party,
     )
     unless people.nil?
     people.update(end_date:  date_end,  updated_at: Time.now)
@@ -119,10 +119,10 @@ class ScrapeMp
           middle_name: name_array[2],
           last_name: name_array[0],
           full_name: name_array.join(' '),
-          rada_id: rada_id,
+          deputy_id: rada_id,
           okrug: okrug,
           photo_url: image,
-          fraction: party,
+          faction: party,
           end_date:  date_end,
           created_at: Time.now,
           updated_at: Time.now

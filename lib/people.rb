@@ -11,13 +11,13 @@ class People
   include DataMapper::Resource
 
   property :id,           Serial    # An auto-increment integer key
-  property :rada_id,      Integer
+  property :deputy_id,      Integer
   property :first_name,   String
   property :middle_name,  String
   property :last_name,    String
   property :full_name,    Text
   property :photo_url,    Text    # A varchar type string, for short strings
-  property :fraction,     String
+  property :faction,     String
   property :okrug,        Integer
   property :end_date,     Date
   property :created_at,   DateTime  # A DateTime, for any date you might like.
