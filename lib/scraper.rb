@@ -91,6 +91,8 @@ class ScrapeMp
       party = "Блок Петра Порошенка"
     elsif hash[:party].include?("Самопоміч")
       party = "Самопоміч"
+    elsif hash[:party].include?("галицька партія")
+      party = "Українська Галицька Партія"
     else
       party = hash[:party].strip
     end
