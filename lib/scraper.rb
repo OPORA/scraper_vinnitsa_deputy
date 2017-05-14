@@ -3,7 +3,7 @@ require 'nokogiri'
 require_relative './people'
 
 class ScrapeMp
-  def initialize
+  def parser
     DataMapper.auto_upgrade!
     url = "http://drv.vmr.gov.ua/deputaty.aspx"
     page = get_page(url)
