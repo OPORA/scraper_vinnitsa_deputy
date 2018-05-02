@@ -1,11 +1,13 @@
 require 'open-uri'
 require 'nokogiri'
 require_relative './people'
+require 'openssl'
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 class ScrapeMp
   def parser
     DataMapper.auto_upgrade!
-    url = "http://drv.vmr.gov.ua/deputaty.aspx"
+    url = "https://drv.vmr.gov.ua/deputaty.aspx"
     page = get_page(url)
     page.css('#form1 table tr td div  table tr td:nth-child(1)').each do |mp|
 
@@ -32,7 +34,7 @@ class ScrapeMp
         full_name: names.join(' '),
         deputy_id: 1111,
         okrug: nil,
-        photo_url: "http://www.vmr.gov.ua/SiteAssets/Lists/CityMajor/Default/Міський голова Сергій Моргунов.jpg",
+        photo_url: "https://www.vmr.gov.ua/SiteAssets/Lists/CityMajor/Default/Міський голова Сергій Моргунов.jpg",
         faction: nil,
         end_date: nil,
         created_at: "9999-12-31"
