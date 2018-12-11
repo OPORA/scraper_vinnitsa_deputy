@@ -22,6 +22,7 @@ class People
   property :end_date,     Date
   property :created_at,   DateTime  # A DateTime, for any date you might like.
   property :updated_at,   DateTime
+  property :lat_fio,    String
 end
 DataMapper.finalize
 
